@@ -1,6 +1,6 @@
 import PyPDF2
 import os
-
+import glob
 
 def PDFmerge(pdfs, output):
     # creating pdf file merger object
@@ -8,19 +8,14 @@ def PDFmerge(pdfs, output):
 
     # appending pdfs one by one
     for pdf in pdfs:
-        with open(pdf, 'rb') as f:
-            pdfMerger.append(f)
+        pdfMerger.append(PyPDF2.PdfFileReader(pdf,'rb'))
 
     # writing combined pdf to output pdf file
-    with open(output, 'wb') as f:
-        pdfMerger.write(f)
+    # with open(output, 'wb') as f:
+    pdfMerger.write('op.pdf')
 
 
-pdfs = []
-dirlist = os.listdir('.')
-for i in dirlist:
-    if '.' not in i:
-        pdfs.append(i)
+pdfs = glob.glob("*.pdf")
 
 # output pdf file name
 output = 'combined.pdf'
